@@ -30,9 +30,27 @@ OpenCL is typically packaged with graphic drivers from vendors like **AMD**, **I
 - For Intel GPUs, download drivers from the [Intel website](https://www.intel.com/content/www/us/en/download-center/home.html).
 
 ### Linux
-On Linux machines, it is recommended to install the `ocl-icd-opencl-dev` package
+#### Ubuntu
 ```shell
-sudo apt-get install ocl-icd-opencl-dev
+sudo apt-get install clinfo ocl-icd-opencl-dev
+```
+
+#### Arch
+Please refer to the [Arch documentation](https://wiki.archlinux.org/title/GPGPU).
+
+For AMD GPUs
+```shell
+sudo pacman -S clinfo opencl-mesa
+```
+
+For NVIDIA GPUs
+```shell
+sudo pacman -S clinfo opencl-nvidia
+```
+
+For Intel GPUs
+```shell
+sudo pacman -S intel-compute-runtime
 ```
 
 ## OpenCV setup
@@ -42,9 +60,19 @@ All applications in this project utilises the OpenCV library. See the official [
 Download the package from the official [OpenCV website](https://opencv.org/get-started/) or its [GitHub page](https://github.com/opencv/opencv/releases/latest).
 
 ### Linux
-On Linux machines, run the following command
+#### Ubuntu
 ```shell
 sudo apt install libopencv-dev clinfo
+```
+
+#### Arch
+```shell
+sudo pacman -S opencv
+```
+
+In addition to `opencv`, you may require the `hdf5` library as well. You can install this using an `AUR` package manager.
+```shell
+yay -S hdf5
 ```
 
 ## CMake Setup
@@ -59,18 +87,16 @@ sudo apt install libopencv-dev clinfo
 
 To run the `RealtimeImageProcessing` application, run the following commands. This will build the `RealtimeImageProcesing` apllication in `Release` mode.
 
-### Windows
+### Build instructions
 ```shell
-cmake -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE --no-warn-unused-cli -S . -B build
-cmake --build build --config Release
-cd .\build\src\RealtimeImageProcessing\Release
-.\RealtimeImageProcessing.exe
+mkdir build
+cd build
+cmake -DCMAKE_BUILD_TYPE=Release ..
+make
 ```
 
-### Linux
+### Running the Real-time application
 ```shell
-cmake -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE --no-warn-unused-cli -S . -B build
-cmake --build build --config Release
-cd build/src/RealtimeImageProcessing/Release
+cd build/src/RealtimeImageProcessing/Release/
 ./RealtimeImageProcessing
 ```
