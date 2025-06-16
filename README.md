@@ -94,3 +94,9 @@ cd build
 cmake -DCMAKE_BUILD_TYPE=Release ..
 make
 ```
+
+### Running the Real-time application
+```shell
+cd build/src/RealtimeImageProcessing/Release/
+./RealtimeImageProcessing
+```
